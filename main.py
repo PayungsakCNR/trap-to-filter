@@ -14,6 +14,9 @@ fileDate = now.strftime("%d-%b-%Y") #day-month-year
 path = '/home/bass/receive/'
 fileName = "trapd-" + fileDate + ".log"
 
+'''
+MAC Address List should be load from some Database for flexible use (If add more AP)
+'''
 #lists of ap mac address each floor
 floor01_mac_list = ['bc:16:f5:98:8:0','68:3b:78:e1:8e:c0','68:3b:78:e1:94:20','f4:4e:5:a2:a1:d0',
                     'dc:8c:37:4c:2e:e0','f4:4e:5:b5:24:b0']
@@ -82,6 +85,7 @@ def readAndInsertSSID():
     #total number of ssids
     overall = int(output.count('TrueMove H')) + int(output.count('CoEWiFi')) + int(output.count('PSU WiFi 802.1x')) + int(output.count('PSU WiFi 5GHz')) + int(output.count('AIS SMART Login')) + int(output.count('CoEIoT'))
 
+    '''
     #insert to database
     JadeBowx.countTruemove(sumTrue)
     JadeBowx.countCoeWifi(sumCoE)
@@ -89,6 +93,12 @@ def readAndInsertSSID():
     JadeBowx.countPSU5Ghz(sum5G)
     JadeBowx.countAIS(sumAis)
     JadeBowx.countCoeIot(sumIot)
+    '''
+
+    #insert to DB
+    JadeBowx.countSSID(sumTrue,"TrueMove H")
+    JadeBowx.countSSID(sumCoE,"CoEWiFi")
+    JadeBowx.countSSID(sumXXX,"XXX")
 
     try:
         #insert percentage
@@ -104,6 +114,7 @@ def readAndInsertSSID():
         overall = 1
     
     finally:
+        '''
         #insert percantage
         JadeBowx.countTruemove_percentage(sumTrue)
         JadeBowx.countCoeWifi_percentage(sumCoE)
@@ -111,6 +122,9 @@ def readAndInsertSSID():
         JadeBowx.countPSU5Ghz_percentage(sum5G)
         JadeBowx.countAIS_percentage(sumAis)
         JadeBowx.countCoeIot_percentage(sumIot)
+        '''
+        JadeBowx.countSSID_percentage(sumSSID1,"SSID_NAME1")
+        JadeBowx.countSSID_percentage(sumSSID2,"SSID_NAME2")
     
     
 #read an    d insert

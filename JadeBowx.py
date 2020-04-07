@@ -1,8 +1,25 @@
 from influxdb import InfluxDBClient
 
+'''
+Username and password for connect to InfluxDB , Please use Environment Variable.
+'''
 dbClient = InfluxDBClient('localhost', 8086, 'sabaszx', 'admin', 'trapEvent', ssl=False, verify_ssl=False)
 dbClient.switch_database('trapEvent')
 
+#Count number (NEW)
+def countSSID(receive, ssid_name):
+json_body = [{
+                "measurement": "countSSID",
+                "tags": {
+                    "SSIDName": ssid_name,
+                "type": "known_ssid"},
+                "fields": {
+
+                    "item": receive}
+                    }
+            ]
+    dbClient.write_points(json_body)
+'''
 #count number
 def countAIS(receive):
     json_body = [{
@@ -88,8 +105,22 @@ def countOthers(receive):
                     }
                 ]
         dbClient.write_points(json_body)
+'''
 
+#Count Percentage (NEW)
+def countSSID_percentage(receive,percentage_SSID):
+    json_body = [{
+                "measurement": "percentage_SSID",
+                "tags": {
+                    "SSIDName": percentage_SSID,
+                "type": "percentage"},
+                "fields": {
+                    "item": receive}
+                    }
+                ]
+    dbClient.write_points(json_body)
 
+'''
 #Percentage
 def countAIS_percentage(receive):
     json_body = [{
@@ -162,7 +193,7 @@ def countCoeWifi_percentage(receive):
                     }
                 ]
             dbClient.write_points(json_body)
-
+'''
 
 
 #count users

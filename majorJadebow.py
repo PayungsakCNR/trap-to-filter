@@ -1,9 +1,24 @@
 from influxdb import InfluxDBClient
 import time
 
+'''
+Username and password for connect to InfluxDB , Please use Environment Variable.
+'''
 dbClient = InfluxDBClient('localhost', 8086, 'sabaszx', 'admin', 'trapEvent', ssl=False, verify_ssl=False)
 dbClient.switch_database('trapEvent')
 
+def countFloor(floorNum):
+    json_body = [{
+                    "measurement": "client_each_floor",
+                    "tags": {
+                        "floor_number": floorNum,
+                    "type": "activities"},
+                    "fields": {
+                        "item": 1}
+                        }
+                    ]
+        dbClient.write_points(json_body)
+'''
 #each floor
 def countFloor01():
         json_body = [{
@@ -53,7 +68,7 @@ def countFloor04():
                         }
                     ]
         dbClient.write_points(json_body)
-
+'''
 def countUserAssociate():
         json_body = [{
                     "measurement": "client_user",
@@ -78,6 +93,18 @@ def countUserDauth():
                 ]
         dbClient.write_points(json_body)
 
+def countSSID(ssid_name):
+    json_body = [{
+                "measurement": "ssid_count",
+                "tags": {
+                    "SSIDName": ssid_name,
+                "type": "known_ssid"},
+                "fields": {
+                    "item": 1}
+                    }
+                ]
+        dbClient.write_points(json_body)
+'''
 def count802():
         json_body = [{
                 "measurement": "ssid_count",
@@ -137,7 +164,7 @@ def countCoeWifi():
                     }
                 ]
             dbClient.write_points(json_body)
-
+'''
 def countRogue():
             json_body = [{
                 "measurement": "ssid_count",

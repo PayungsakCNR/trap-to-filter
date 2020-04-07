@@ -7,6 +7,10 @@ import Filterx
 now = datetime.datetime.now()
 strnow = now.strftime("%X") #current time
 
+'''
+Username and password for connect to InfluxDB , Please use Environment Variable.
+'''
+
 dbClient = InfluxDBClient('localhost', 8086, 'sabaszx', 'admin', 'trapEvent', ssl=False, verify_ssl=False)
 dbClient.switch_database('trapEvent')
 
